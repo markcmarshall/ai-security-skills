@@ -12,8 +12,8 @@ LLMs are trained on tutorials, Stack Overflow, blog posts, and demo repos —
 a corpus that systematically optimizes for shortest-path-to-working, not
 correctness. The model's most likely answer is the tutorial answer.
 Confident and wrong. This is a different failure than not knowing the
-secure pattern — the model usually does know it, it just isn't the
-statistically modal one.
+secure pattern — the model usually does know it, it just isn't always the
+statistically probable one it chooses.
 
 Classic output of this failure: `Access-Control-Allow-Origin: *`, auth
 tokens in `localStorage`, disabled CSRF protection for convenience,

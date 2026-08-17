@@ -1,6 +1,6 @@
 # ai-security-skills
 
-Claude Code skills that stop your LLM from shipping vulnerabilities you'd
+Skills that stop your LLM from shipping vulnerabilities you'd
 catch yourself if you were the one typing.
 
 None of this is secret. Every experienced dev knows most of it. They just
@@ -10,7 +10,7 @@ told to. That's the gap these close.
 
 ## Why this happens
 
-An LLM introduces security vulnerabilities for one of four reasons:
+An LLM introduces security vulnerabilities primarily for one of four reasons:
 
 | Cause | What it is | What it produces |
 | --- | --- | --- |

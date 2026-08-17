@@ -2,17 +2,14 @@
 name: check-current-versions
 description: >
   Verify current stable/LTS versions of runtimes, frameworks, and libraries
-  before writing code. Use when starting a project, adding a dependency, or
-  when a suggested pattern might be based on a stale training cutoff.
+  before writing code. Use when starting a project or adding a dependency.
 ---
 
 # Check current versions
 
-An LLM's sense of "current" is frozen at its training cutoff. That's not a
+An LLM's sense of "current" is frozen at its training cutoff date. That's not a
 reasoning failure, it's a property of the artifact — versions released and
-patterns deprecated after cutoff are structurally unknowable from memory
-alone. Left unchecked, this produces stale dependency suggestions and
-deprecated API patterns presented with full confidence.
+patterns deprecated after the training cutoff are structurally unknowable to the model.
 
 ## Instruction
 

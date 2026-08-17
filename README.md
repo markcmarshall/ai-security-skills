@@ -3,7 +3,7 @@
 Skills that stop your AI coding agent from shipping vulnerabilities you'd
 catch yourself if you were the one typing.
 
-None of this is secret. Every experienced dev knows most of it. They just
+This isn't rocket science and every experienced dev knows these things. They just
 don't have muscle memory for checking it every single time, and an LLM
 generating code at 10x your typing speed doesn't check it at all unless
 told to. That's the gap these close.

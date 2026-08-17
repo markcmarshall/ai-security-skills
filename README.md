@@ -32,17 +32,23 @@ Each skill below targets one of these directly.
 
 ## Install
 
-Drop a skill folder into your Claude Code skills path:
+Same `SKILL.md` format works unmodified across Claude Code, Codex, and Grok
+Build. Drop the skill folder into the right path and it's picked up
+automatically — no restart, no config.
+
+| Harness | This project only | Every project |
+| --- | --- | --- |
+| Claude Code | `.claude/skills/` | `~/.claude/skills/` |
+| Codex | `.agents/skills/` | `~/.agents/skills/` |
+| Grok Build | `.grok/skills/` | `~/.grok/skills/` |
 
 ```
-# Personal, all projects
-cp -r skills/check-current-versions ~/.claude/skills/
-
-# This project only
-cp -r skills/check-current-versions .claude/skills/
+cp -r skills/check-current-versions .claude/skills/   # Claude Code, this project
+cp -r skills/check-current-versions ~/.agents/skills/  # Codex, every project
+cp -r skills/check-current-versions .grok/skills/      # Grok Build, this project
 ```
 
-Claude Code picks it up automatically — no restart, no config.
+Grab all four the same way — `cp -r skills/* <path>/`.
 
 ## License
 

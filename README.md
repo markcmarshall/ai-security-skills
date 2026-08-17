@@ -1,6 +1,6 @@
 # ai-security-skills
 
-Skills that stop your AI coding agents from shipping vulnerabilities you'd
+Skills that stop your AI coding agent from shipping vulnerabilities you'd
 catch yourself if you were the one typing.
 
 None of this is secret. Every experienced dev knows most of it. They just

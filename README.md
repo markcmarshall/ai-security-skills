@@ -32,12 +32,6 @@ Each skill below targets one of these directly.
 
 ## Install
 
-Same `SKILL.md` format works unmodified across Claude Code, Codex, and Grok
-Build. Drop the skill folder into the right path and it's picked up
-automatically — no restart, no config.
-
-Pick based on how much you trust running someone else's installer.
-
 ### Fast — npx
 
 ```
@@ -50,8 +44,12 @@ before you run it if you want to know exactly what it does.
 
 ### Zero tooling — copy-paste
 
-No git, no npm, no shell commands beyond making a folder. For each skill
-you want:
+For full transparency you can manually copy the skill text and create the skills yourself (some people don't trust NPX installs - fair enough). 
+
+Same `SKILL.md` format works unmodified across Claude Code, Codex, and Grok
+Build. Drop the skill folder into the right path and it's picked up
+automatically — no restart, no config.
+
 
 1. Open its `SKILL.md` above and read it
 2. Create the folder for your harness:

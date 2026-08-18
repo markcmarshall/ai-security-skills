@@ -67,6 +67,23 @@ you want:
 Nothing executes and nothing downloads except the page you're already
 looking at.
 
+## Usage
+
+Nothing to invoke by default. Once a skill is in the right folder, your
+agent reads its `description` frontmatter and decides on its own when it
+applies — you don't call it, you just work and it surfaces when relevant.
+Implementing auth and `secure-over-common` should weigh in without being
+asked. Adding an import and `verify-dependencies-exist` should engage
+before it lands.
+
+You can also force one explicitly:
+
+| Harness | Explicit invocation |
+| --- | --- |
+| Claude Code | `/secure-over-common` |
+| Codex | `$secure-over-common` |
+| Grok Build | `/secure-over-common` |
+
 ## License
 
 MIT

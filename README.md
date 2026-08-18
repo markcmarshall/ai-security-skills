@@ -36,19 +36,36 @@ Same `SKILL.md` format works unmodified across Claude Code, Codex, and Grok
 Build. Drop the skill folder into the right path and it's picked up
 automatically — no restart, no config.
 
-| Harness | This project only | Every project |
-| --- | --- | --- |
-| Claude Code | `.claude/skills/` | `~/.claude/skills/` |
-| Codex | `.agents/skills/` | `~/.agents/skills/` |
-| Grok Build | `.grok/skills/` | `~/.grok/skills/` |
+Pick based on how much you trust running someone else's installer.
+
+### Fast — npx
 
 ```
-cp -r skills/check-current-versions .claude/skills/   # Claude Code, this project
-cp -r skills/check-current-versions ~/.agents/skills/  # Codex, every project
-cp -r skills/check-current-versions .grok/skills/      # Grok Build, this project
+npx ai-security-skills
 ```
 
-Grab all four the same way — `cp -r skills/* <path>/`.
+Detects which harness(es) you have, asks which skills you want, copies
+them in. Zero dependencies — read [`bin/install.js`](bin/install.js)
+before you run it if you want to know exactly what it does.
+
+### Zero tooling — copy-paste
+
+No git, no npm, no shell commands beyond making a folder. For each skill
+you want:
+
+1. Open its `SKILL.md` above and read it
+2. Create the folder for your harness:
+
+   | Harness | This project only | Every project |
+   | --- | --- | --- |
+   | Claude Code | `.claude/skills/<skill-name>/` | `~/.claude/skills/<skill-name>/` |
+   | Codex | `.agents/skills/<skill-name>/` | `~/.agents/skills/<skill-name>/` |
+   | Grok Build | `.grok/skills/<skill-name>/` | `~/.grok/skills/<skill-name>/` |
+
+3. Create `SKILL.md` inside it and paste in what you just read
+
+Nothing executes and nothing downloads except the page you're already
+looking at.
 
 ## License
 

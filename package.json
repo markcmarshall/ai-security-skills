@@ -1,0 +1,21 @@
+{
+  "name": "ai-security-skills",
+  "version": "0.1.0",
+  "description": "Skills that stop your AI coding agent from shipping vulnerabilities you'd catch yourself",
+  "bin": {
+    "ai-security-skills": "bin/install.js"
+  },
+  "files": [
+    "bin/",
+    "skills/"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markcmarshall/ai-security-skills.git"
+  },
+  "homepage": "https://github.com/markcmarshall/ai-security-skills",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}

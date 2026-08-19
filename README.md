@@ -2,13 +2,11 @@
 
 [![npm version](https://img.shields.io/npm/v/ai-security-skills.svg)](https://www.npmjs.com/package/ai-security-skills)
 
-Skills that stop your AI coding agent from shipping vulnerabilities you'd
-catch yourself if you were the one typing.
-
-This isn't rocket science and every experienced dev knows these things. They just
-don't have muscle memory for checking it every single time, and an LLM
-generating code at 10x your typing speed doesn't check it at all unless
-told to. That's the gap these close.
+Coding agents introduce vulnerabilities into your code even when you
+prompt them correctly. Specific blind spots exist that a model can't
+reason its way out of, no matter how careful the prompt — they're
+structural, not a lapse in attention. This repo is four skills, each
+targeting the root cause of one of those blind spots.
 
 ## Why this happens
 
@@ -21,8 +19,6 @@ An LLM introduces security vulnerabilities primarily for one of four reasons:
 | **No referent** | Generates plausible tokens, not verified facts. Package names and config keys come from likelihood, not lookup | Hallucinated and typosquatted ("slopsquatted") packages, invented config options |
 | **Unstated requirements stay unstated** | Asked for a feature, it builds exactly that and nothing more. Security controls are the canonical thing nobody asks for by name | Hardcoded secrets, untouched unsafe defaults, missing authz |
 
-Each skill below targets one of these directly.
-
 ## Skills
 
 | Skill | Cause | Use when |
@@ -34,27 +30,31 @@ Each skill below targets one of these directly.
 
 ## Install
 
-### Fast — npx
+Same `SKILL.md` format works unmodified across Claude Code, Codex, and Grok
+Build — once a skill is in the right folder it's picked up automatically,
+no restart, no config. Two ways to get it there, pick based on how much
+you trust running someone else's installer.
+
+### npx — fastest
+
+Run this in your terminal, not in your agent's chat:
 
 ```
 npx ai-security-skills
 ```
 
-Detects which harness(es) you have, asks which skills you want, copies
-them in. Zero dependencies — read [`bin/install.js`](bin/install.js)
-before you run it if you want to know exactly what it does.
+It asks which harness(es) you have and which skills you want, then copies
+the files in. Zero dependencies — read [`bin/install.js`](bin/install.js)
+first if you want to know exactly what it does before running it.
 
-### Zero tooling — copy-paste
+### Manual install
 
-For full transparency you can manually copy the skill text and create the skills yourself (some people don't trust NPX installs - fair enough). 
-
-Same `SKILL.md` format works unmodified across Claude Code, Codex, and Grok
-Build. Drop the skill folder into the right path and it's picked up
-automatically — no restart, no config.
-
+Copy and paste each skill in by hand — no terminal, no npm. Do this if
+you want to see and control exactly what lands where; it's mostly here
+for full transparency. For each skill you want:
 
 1. Open its `SKILL.md` above and read it
-2. Create the folder for your harness:
+2. Create its folder for your harness:
 
    | Harness | This project only | Every project |
    | --- | --- | --- |
@@ -64,25 +64,30 @@ automatically — no restart, no config.
 
 3. Create `SKILL.md` inside it and paste in what you just read
 
-Nothing executes and nothing downloads except the page you're already
-looking at.
+That's it — nothing executes, nothing downloads except the page you
+already opened.
 
 ## Usage
 
-Nothing to invoke by default. Once a skill is in the right folder, your
-agent reads its `description` frontmatter and decides on its own when it
-applies — you don't call it, you just work and it surfaces when relevant.
-Implementing auth and `secure-over-common` should weigh in without being
-asked. Adding an import and `verify-dependencies-exist` should engage
-before it lands.
+Call a skill by name directly:
 
-You can also force one explicitly:
+| Skill | Claude Code | Codex | Grok Build |
+| --- | --- | --- | --- |
+| `check-current-versions` | `/check-current-versions` | `$check-current-versions` | `/check-current-versions` |
+| `secure-over-common` | `/secure-over-common` | `$secure-over-common` | `/secure-over-common` |
+| `verify-dependencies-exist` | `/verify-dependencies-exist` | `$verify-dependencies-exist` | `/verify-dependencies-exist` |
+| `name-the-unstated-controls` | `/name-the-unstated-controls` | `$name-the-unstated-controls` | `/name-the-unstated-controls` |
 
-| Harness | Explicit invocation |
-| --- | --- |
-| Claude Code | `/secure-over-common` |
-| Codex | `$secure-over-common` |
-| Grok Build | `/secure-over-common` |
+You don't have to — your agent also reads each skill's `description` on
+its own and decides when it applies, without being asked. The table
+above is for when you want to force one directly.
+
+## Disclaimer
+
+These are prompts, not proof. A skill raises the odds your agent catches
+a class of mistake — it doesn't guarantee it, doesn't replace a real
+security review, and doesn't make a codebase audited. Treat a catch as a
+starting point for your own judgment, not a pass/fail gate.
 
 ## License
 

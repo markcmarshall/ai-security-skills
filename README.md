@@ -1,5 +1,7 @@
 # ai-security-skills
 
+[![npm version](https://img.shields.io/npm/v/ai-security-skills.svg)](https://www.npmjs.com/package/ai-security-skills)
+
 Skills that stop your AI coding agent from shipping vulnerabilities you'd
 catch yourself if you were the one typing.
 

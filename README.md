@@ -71,12 +71,12 @@ already opened.
 
 Call a skill by name directly:
 
-| Skill | Claude Code | Codex | Grok Build |
-| --- | --- | --- | --- |
-| `check-current-versions` | `/check-current-versions` | `$check-current-versions` | `/check-current-versions` |
-| `secure-over-common` | `/secure-over-common` | `$secure-over-common` | `/secure-over-common` |
-| `verify-dependencies-exist` | `/verify-dependencies-exist` | `$verify-dependencies-exist` | `/verify-dependencies-exist` |
-| `name-the-unstated-controls` | `/name-the-unstated-controls` | `$name-the-unstated-controls` | `/name-the-unstated-controls` |
+| Skill | Claude Code / Grok Build | Codex |
+| --- | --- | --- |
+| `check-current-versions` | `/check-current-versions` | `$check-current-versions` |
+| `secure-over-common` | `/secure-over-common` | `$secure-over-common` |
+| `verify-dependencies-exist` | `/verify-dependencies-exist` | `$verify-dependencies-exist` |
+| `name-the-unstated-controls` | `/name-the-unstated-controls` | `$name-the-unstated-controls` |
 
 You don't have to — your agent also reads each skill's `description` on
 its own and decides when it applies, without being asked. The table

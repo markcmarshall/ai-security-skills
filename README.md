@@ -6,7 +6,8 @@ Coding agents introduce vulnerabilities into your code even when you
 prompt them correctly. Specific blind spots exist that a model can't
 reason its way out of, no matter how careful the prompt — they're
 structural, not a lapse in attention. This repo is four skills, each
-targeting the root cause of one of those blind spots.
+targeting the root cause of one of those blind spots — plus a fifth for
+a related but different failure: trusting a repo you shouldn't have.
 
 ## Why this happens
 
@@ -27,6 +28,22 @@ An LLM introduces security vulnerabilities primarily for one of four reasons:
 | [`secure-over-common`](skills/secure-over-common/SKILL.md) | Popularity-weighted training | Implementing auth, CORS, storage, or input rendering |
 | [`verify-dependencies-exist`](skills/verify-dependencies-exist/SKILL.md) | No referent | Any new import or package shows up in generated code |
 | [`name-the-unstated-controls`](skills/name-the-unstated-controls/SKILL.md) | Unstated requirements | Before marking any feature complete |
+
+## Also included
+
+Not every security failure is your agent writing bad code — sometimes it's
+you trusting a repo you shouldn't have. This one's a different axis: it
+audits an external source before you install from it, rather than
+catching a blind spot in code being generated.
+
+| Skill | Use when |
+| --- | --- |
+| [`audit-repo-before-install`](skills/audit-repo-before-install/SKILL.md) | Installing a skill, plugin, MCP server, or dependency from an unfamiliar source |
+
+Same checklist also ships standalone, dependency-free, at
+[`is-this-safe`](https://github.com/markcmarshall/is-this-safe) — copy-paste
+a single prompt with no install required, for auditing a repo before you've
+decided to trust anything, including this one.
 
 ## Install
 
@@ -77,6 +94,7 @@ Call a skill by name directly:
 | `secure-over-common` | `/secure-over-common` | `$secure-over-common` |
 | `verify-dependencies-exist` | `/verify-dependencies-exist` | `$verify-dependencies-exist` |
 | `name-the-unstated-controls` | `/name-the-unstated-controls` | `$name-the-unstated-controls` |
+| `audit-repo-before-install` | `/audit-repo-before-install` | `$audit-repo-before-install` |
 
 You don't have to — your agent also reads each skill's `description` on
 its own and decides when it applies, without being asked. The table

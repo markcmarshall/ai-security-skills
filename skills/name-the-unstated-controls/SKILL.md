@@ -2,8 +2,8 @@
 name: name-the-unstated-controls
 description: >
   Force security controls that were never explicitly requested to get named
-  and checked before an implementation is considered done. Use before
-  marking any feature complete.
+  and shown in the diff before an implementation is considered done. Use
+  before marking any feature complete.
 ---
 
 # Name the unstated controls
@@ -19,15 +19,19 @@ because nobody asked for them by name.
 ## Instruction
 
 Before treating an implementation as complete, name the security controls
-implied by what was built — not what was asked for, what's implied by it —
-and confirm each is actually present:
+implied by what was built — not what was asked for, what's implied by it.
+For each named control, point at the line that implements it. No line
+means it is not present. Saying you added it is not the line.
 
-- Secrets externalized, never hardcoded or committed
-- Platform-level defaults left in their secure state, or explicitly
-  reasoned about if changed
-- Authorization enforced server-side, not assumed from client state
-- Trust boundaries respected — client input is untrusted input, full stop
+Do not substitute a generic control catalog for this. Name what this
+change implies.
+
+Also name one invalid or malicious case the happy path does not cover,
+or explicitly defer it. "Assume valid" is a finding.
+
+If you cannot name the source of a value that reaches a sink, stop and
+use `assume-tainted`.
 
 Silence in the spec is not permission to skip a control. If a control
-applies and wasn't mentioned, say so before calling the work done — don't
-wait to be asked.
+applies and wasn't mentioned, say so before calling the work done —
+don't wait to be asked.

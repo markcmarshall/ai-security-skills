@@ -5,20 +5,26 @@
 Coding agents introduce vulnerabilities into your code even when you
 prompt them correctly. Specific blind spots exist that a model can't
 reason its way out of, no matter how careful the prompt — they're
-structural, not a lapse in attention. This repo is four skills, each
-targeting the root cause of one of those blind spots — plus a fifth for
-a related but different failure: trusting a repo you shouldn't have.
+structural, not a lapse in attention. Four of those explain why the
+first draft of a function is insecure. A fifth — no taint — is why a
+security pass still ships XSS, log injection, and open redirects. This
+repo is one skill per those five, plus a supporting skill on a different
+axis: trusting a repo you shouldn't have.
+
+Channel collapse (tool output as instructions) and session amnesia are
+real and not addressed here. Neither is the objective function
+(helpful/short/compiling beats secure — security prompts redistribute
+CWEs) nor evals that score green tests rather than sinks.
 
 ## Why this happens
-
-An LLM introduces security vulnerabilities primarily for one of four reasons:
 
 | Cause | What it is | What it produces |
 | --- | --- | --- |
 | **Frozen knowledge** | Training cutoff — versions and deprecations after it are structurally unknowable, not a reasoning failure | Stale, known-vulnerable versions |
-| **Popularity-weighted training data** | Trained on tutorials and demos optimized for shortest-path-to-working, not correctness. The modal answer is the tutorial answer | `origin: '*'`, tokens in `localStorage`, disabled CSRF, the rest of the insecure-but-common idiom set |
-| **No referent** | Generates plausible tokens, not verified facts. Package names and config keys come from likelihood, not lookup | Hallucinated and typosquatted ("slopsquatted") packages, invented config options |
+| **Popularity-weighted training data** | Trained on tutorials, demos, and pedagogical vuln apps (WebGoat, DVWA, CTF copies) treated as complete working examples. The modal answer is the tutorial answer | `origin: '*'`, tokens in `localStorage`, disabled CSRF, copies of teaching-target patterns |
+| **No referent** | Generates plausible tokens, not verified facts. Package names, API symbols, and config keys come from likelihood, not lookup | Hallucinated and typosquatted ("slopsquatted") packages, invented methods and config options |
 | **Unstated requirements stay unstated** | Asked for a feature, it builds exactly that and nothing more. Security controls are the canonical thing nobody asks for by name | Hardcoded secrets, untouched unsafe defaults, missing authz |
+| **No taint / local-pattern reasoning** | Cannot reliably track untrusted data to a sink across functions or files. Recognizes nearby idioms, not data-flow | XSS, log injection, open redirects, shell and path concat |
 
 ## Skills
 
@@ -26,15 +32,16 @@ An LLM introduces security vulnerabilities primarily for one of four reasons:
 | --- | --- | --- |
 | [`check-current-versions`](skills/check-current-versions/SKILL.md) | Frozen knowledge | Starting a project or adding a dependency |
 | [`secure-over-common`](skills/secure-over-common/SKILL.md) | Popularity-weighted training | Implementing auth, CORS, storage, or input rendering |
-| [`verify-dependencies-exist`](skills/verify-dependencies-exist/SKILL.md) | No referent | Any new import or package shows up in generated code |
+| [`verify-dependencies-exist`](skills/verify-dependencies-exist/SKILL.md) | No referent | Any new import, package, API symbol, or config key shows up in generated code |
 | [`name-the-unstated-controls`](skills/name-the-unstated-controls/SKILL.md) | Unstated requirements | Before marking any feature complete |
+| [`assume-tainted`](skills/assume-tainted/SKILL.md) | No taint | Rendering, logging, redirects, webhooks, templates, or request data into queries/files |
 
 ## Also included
 
-Not every security failure is your agent writing bad code — sometimes it's
-you trusting a repo you shouldn't have. This one's a different axis: it
-audits an external source before you install from it, rather than
-catching a blind spot in code being generated.
+Not every security failure is your agent writing bad code — sometimes
+it's you trusting a repo you shouldn't have. This one's a different
+axis: it audits an external source before you install from it, rather
+than catching a blind spot in code being generated.
 
 | Skill | Use when |
 | --- | --- |
@@ -94,6 +101,7 @@ Call a skill by name directly:
 | `secure-over-common` | `/secure-over-common` | `$secure-over-common` |
 | `verify-dependencies-exist` | `/verify-dependencies-exist` | `$verify-dependencies-exist` |
 | `name-the-unstated-controls` | `/name-the-unstated-controls` | `$name-the-unstated-controls` |
+| `assume-tainted` | `/assume-tainted` | `$assume-tainted` |
 | `audit-repo-before-install` | `/audit-repo-before-install` | `$audit-repo-before-install` |
 
 You don't have to — your agent also reads each skill's `description` on

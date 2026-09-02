@@ -20,6 +20,11 @@ tokens in `localStorage`, disabled CSRF protection for convenience,
 unsanitized HTML rendering. Every one of these is copied from a working
 example, not reasoned from a threat model.
 
+The same corpus includes pedagogical vuln apps — WebGoat, DVWA, CTF
+writeup copies — as complete, compiling examples. They exist to be
+wrong. A pattern whose home repo is a teaching target is not a
+template. Do not copy it.
+
 ## Instruction
 
 When implementing anything security-relevant — auth, CORS, storage, input

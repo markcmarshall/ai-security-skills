@@ -1,35 +1,37 @@
 ---
 name: verify-dependencies-exist
 description: >
-  Verify that any package, import, or config key an LLM introduces actually
-  exists before it's installed or used. Use whenever new dependencies or
-  unfamiliar config options show up in generated code.
+  Verify that any package, import, API symbol, or config key an LLM
+  introduces actually exists before it is installed or used. Use whenever
+  new dependencies, unfamiliar methods, or unfamiliar config options show
+  up in generated code.
 ---
 
 # Verify dependencies exist
 
-An LLM generates plausible tokens, not verified facts. Package names, config
-keys, and API signatures come out of likelihood, not lookup — which means a
-name can be perfectly plausible and not real. This is the mechanism behind
-"slopsquatting": an LLM hallucinates a plausible package name, an attacker
-pre-registers it, and the next LLM (or the next run of the same one) that
-hallucinates that name pulls in the squat. Nobody typed the malicious name —
-the model invented it and nobody checked.
+An LLM generates plausible tokens, not verified facts. Package names,
+imports, API symbols, and config keys come out of likelihood, not lookup
+— which means a name can be perfectly plausible and not real. This is
+the mechanism behind slopsquatting: the model invents a package, an
+attacker pre-registers it, and the next run that emits that name pulls
+in the squat. The same failure on a real package is a hallucinated
+method or config key that compiles in the model's head and nowhere else.
 
 ## Instruction
 
-Before adding any dependency — especially one the LLM itself introduced
-during code generation rather than one you explicitly named — verify it
-exists on the actual package registry. Never assume a plausible or
-conventionally-named package is real.
+Before shipping any new referent the model introduced — package, import,
+API symbol, or config key — look it up on the actual registry or the
+current docs for that package. Cite what you opened. If you cannot cite
+it, it does not ship.
 
-Check registry metadata: publish date, download/install count, maintainer
-and version history. A package matching an expected name but with a recent
-creation date, low installs, or a thin commit history is a squatting signal.
+Never assume a plausible or conventionally-named token is real. A real
+package does not make `pkg.somethingThatLooksRight()` real.
 
-Flag near-misses — transposition, hyphen/underscore swap, singular/plural,
-common misspelling — of a much more popular package serving the same
-purpose.
+Age and near-misses are signals, not verdicts. A brand-new name that
+is a transposition, hyphen/underscore swap, singular/plural, or common
+misspelling of a much more popular package serving the same purpose is
+a squat signal — stop and say so. Low download count alone is not.
 
-Treat every new import as unverified until checked. Do not let it silently
-resolve into an install.
+Treat every new import and every new symbol on an existing import as
+unverified until checked. Do not let it silently resolve into an
+install or a call.
